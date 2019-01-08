@@ -5,8 +5,11 @@
 ## Installation
 
 ```shell
-./install.sh
+cd ~/.config &&
+git clone git@github.com:andrewaguiar/neovimfiles.git nvim
 ```
+
+After cloning the repo enter nvim and execute `:PlugInstall`
 
 ## Plugins
 
