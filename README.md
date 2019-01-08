@@ -1,6 +1,6 @@
 # My NeoVim Files
 
-![Example](example1.png)
+![Example](example.png)
 
 ## Installation
 
