@@ -6,6 +6,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'cohama/lexima.vim'
 call plug#end()
 
 colorscheme badwolf
