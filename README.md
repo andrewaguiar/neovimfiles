@@ -1,4 +1,4 @@
-# My vimfiles
+# My NeoVim Files
 
 ![Example](example1.png)
 
