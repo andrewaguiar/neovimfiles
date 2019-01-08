@@ -7,6 +7,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'cohama/lexima.vim'
+Plug 'itchyny/lightline.vim'
 call plug#end()
 
 colorscheme badwolf
@@ -16,6 +17,7 @@ set hidden
 set tabstop=2     " a tab is two spaces
 set shiftwidth=2
 set expandtab
+set noshowmode
 
 set guicursor=
 
