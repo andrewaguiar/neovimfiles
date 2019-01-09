@@ -7,7 +7,6 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'cohama/lexima.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'majutsushi/tagbar'
 call plug#end()
 
 colorscheme badwolf
@@ -147,9 +146,6 @@ map <Leader>p1 :call PutBreakPoint1()<CR>
 noremap <Leader>c <C-]>
 
 nnoremap <Leader>cg :!ctags -R<CR>
-nnoremap <Leader>a :Ag<CR>
-
-nmap <F8> :TagbarToggle<CR>
 
 map <Leader>mk :!mkdir -p %:h<CR>
 map <Leader>rm :!rm -rf %<CR>
