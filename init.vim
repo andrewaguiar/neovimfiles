@@ -7,6 +7,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'cohama/lexima.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'majutsushi/tagbar'
 call plug#end()
 
 colorscheme badwolf
@@ -48,7 +49,8 @@ set cursorline
 set nobackup
 set noswapfile
 
-set t_Co=256 " 256 colors
+" 256 colors
+set t_Co=256
 set background=dark
 
 " change the mapleader from \ to ,
@@ -59,28 +61,9 @@ filetype plugin indent on
 " turn syntax on
 syntax on
 
-" Change editing behaviour
-"
-" When you write a lot of code, you probably want to obey certain style rules
-" In some programming languages (like Python), whitespace is important, so you
-" may not just swap tabs for spaces and even the number of spaces is important
-"
-" Vim can highlight whitespaces for you in a convenient way:
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
-" Pasting large amounts of text into Vim
-"
-" Every Vim user likes to enable auto-indenting of source code, so Vim can intelligently 
-" position you cursor on the next line as you type. This has one big ugly consequence however: 
-" when you paste text into your terminal-based Vim with a right mouse click, Vim cannot know it 
-" is coming from a paste. To Vim, it looks like text entered by someone who can type incredibly 
-" fast :) Since Vim thinks this is regular key strokes, it applies all auto-indenting and 
-" auto-expansion of defined abbreviations to the input, resulting in often cascading indents 
-" of paragraphs.
-"
-" There is an easy option to prevent this, however. You can temporarily switch to “paste mode”, 
-" simply by setting the following option:
 set pastetoggle=<F3>
 
 " Enables mouse
@@ -93,14 +76,11 @@ au BufRead,BufNewFile *.scss set filetype=scss
 :hi TabLine ctermfg=White ctermbg=Black
 :hi TabLineSel ctermfg=White ctermbg=DarkGreen
 
-" Configuring Plugins
 let g:lightline = {'active': {'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified']]}}
 
 let g:lexima_enable_basic_rules = 0
 let g:lexima_enable_newline_rules = 1
 let g:lexima_enable_endwise_rules = 1
-
-" Mappings
 
 " Allows use ; instead of :
 nnoremap ; :
@@ -155,14 +135,21 @@ function! PutBreakPoint1()
 endfunction
 
 nnoremap <Leader><space> :noh<CR>
+
 nmap <script> <silent> <unique> <Leader><Leader> :Buffers<CR>
+
 nnoremap <Leader>bd :bufdo bd<CR>
 nnoremap <Leader>q :bufdo q<CR>
 nnoremap <Leader>w :bufdo w<CR>
+
 map <Leader>p :call PutBreakPoint()<CR>
 map <Leader>p1 :call PutBreakPoint1()<CR>
 noremap <Leader>c <C-]>
+
 nnoremap <Leader>cg :!ctags -R<CR>
+nnoremap <Leader>a :Ag<CR>
+
+nmap <F8> :TagbarToggle<CR>
 
 map <Leader>mk :!mkdir -p %:h<CR>
 map <Leader>rm :!rm -rf %<CR>
