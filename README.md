@@ -15,7 +15,6 @@ After cloning the repo enter nvim and execute `:PlugInstall`
 
   - FZF: Fuzzy searching and auto complete (mapped as `ctrl p`).
   - NerdTree: Opens a file tree navegation.
-  - Ag: Silver search `ag` in a inner window.
   - NerdCommenter: Easy comment / uncomment (mapped as `leader cc` / `leader cu`).
   - Lexima: Automatic closes `(`, `[`, and etc.
   - Lightline: Beautiful status bar.
