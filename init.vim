@@ -3,7 +3,7 @@ Plug 'sjl/badwolf'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'cohama/lexima.vim'
@@ -94,10 +94,18 @@ au BufRead,BufNewFile *.scss set filetype=scss
 :hi TabLine ctermfg=White ctermbg=Black
 :hi TabLineSel ctermfg=White ctermbg=DarkGreen
 
-" MAPPINGS
+" Configuring Plugins
+let g:lightline = {'active': {'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified']]}}
+
+let g:lexima_enable_basic_rules = 0
+let g:lexima_enable_newline_rules = 1
+let g:lexima_enable_endwise_rules = 1
+
+" Mappings
 
 " Allows use ; instead of :
 nnoremap ; :
+
 " Forces to use h j k l keys
 map <right> <nop>
 map <left> <nop>
