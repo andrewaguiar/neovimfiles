@@ -20,7 +20,6 @@ After cloning the repo enter nvim and execute `:PlugInstall`
   - Lightline: Beautiful status bar.
   - Vim-polyglot: Syntax for several lnaguages.
   - Badwolf: Color schema BadWolf for the win.
-  - Tagbar: Tags awesome
 
 ## Useful Commands
 
