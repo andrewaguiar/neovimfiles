@@ -13,13 +13,12 @@ After cloning the repo enter nvim and execute `:PlugInstall`
 
 ## Plugins
 
+  - Badwolf: Color schema BadWolf for the win.
+  - Vim-polyglot: Syntax for several languages.
   - FZF: Fuzzy searching and auto complete (mapped as `ctrl p`).
   - NerdTree: Opens a file tree navegation.
   - NerdCommenter: Easy comment / uncomment (mapped as `leader cc` / `leader cu`).
-  - Lexima: Automatic closes `(`, `[`, and etc.
   - Lightline: Beautiful status bar.
-  - Vim-polyglot: Syntax for several lnaguages.
-  - Badwolf: Color schema BadWolf for the win.
 
 ## Useful Commands
 
