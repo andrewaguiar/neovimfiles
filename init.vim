@@ -5,7 +5,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
-Plug 'cohama/lexima.vim'
 Plug 'itchyny/lightline.vim'
 call plug#end()
 
@@ -77,10 +76,6 @@ au BufRead,BufNewFile *.scss set filetype=scss
 
 let g:lightline = {'active': {'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified']]}}
 
-let g:lexima_enable_basic_rules = 0
-let g:lexima_enable_newline_rules = 1
-let g:lexima_enable_endwise_rules = 1
-
 " Allows use ; instead of :
 nnoremap ; :
 
@@ -118,7 +113,7 @@ function! PutBreakPoint()
     execute "norm o<% (require 'pry'; binding.pry) %>"
   elseif match(expand("%"), ".rb$") != -1 || match(expand("%"), ".rake$") != -1
     execute "norm o(require 'pry'; binding.pry)"
-  elseif match(expand("%"), ".js$") != -1
+  elseif match(expand("%"), ".js$") != -1 || match(expand("%"), ".jsx$") != -1
     execute "norm odebugger"
   endif
 endfunction
@@ -128,8 +123,6 @@ function! PutBreakPoint1()
     execute "norm o<% byebug %>"
   elseif match(expand("%"), ".rb$") != -1 || match(expand("%"), ".rake$") != -1
     execute "norm obyebug"
-  elseif match(expand("%"), ".js$") != -1
-    execute "norm odebugger"
   endif
 endfunction
 
