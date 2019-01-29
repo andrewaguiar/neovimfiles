@@ -6,6 +6,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'itchyny/lightline.vim'
+Plug 'andrewaguiar/putbreakpoints'
 call plug#end()
 
 colorscheme badwolf
@@ -108,32 +109,11 @@ nnoremap <S-Right> <C-w>l
 nmap <F4> :.w !xclip -i -sel c<CR><CR>
 vmap <F4> :w !xclip -i -sel c<CR><CR>
 
-function! PutBreakPoint()
-  if match(expand("%"), ".html.erb$") != -1
-    execute "norm o<% (require 'pry'; binding.pry) %>"
-  elseif match(expand("%"), ".rb$") != -1 || match(expand("%"), ".rake$") != -1
-    execute "norm o(require 'pry'; binding.pry)"
-  elseif match(expand("%"), ".js$") != -1 || match(expand("%"), ".jsx$") != -1
-    execute "norm odebugger"
-  endif
-endfunction
-
-function! PutBreakPoint1()
-  if match(expand("%"), ".html.erb$") != -1
-    execute "norm o<% byebug %>"
-  elseif match(expand("%"), ".rb$") != -1 || match(expand("%"), ".rake$") != -1
-    execute "norm obyebug"
-  endif
-endfunction
-
 nnoremap <Leader><space> :noh<CR>
 
 nnoremap <Leader>bd :bufdo bd<CR>
 nnoremap <Leader>q :bufdo q<CR>
 nnoremap <Leader>w :bufdo w<CR>
-
-map <Leader>p :call PutBreakPoint()<CR>
-map <Leader>p1 :call PutBreakPoint1()<CR>
 
 nnoremap <Leader>cg :!ctags -R<CR>
 noremap <Leader>c <C-]>
