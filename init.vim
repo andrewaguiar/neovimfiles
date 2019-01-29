@@ -128,17 +128,15 @@ endfunction
 
 nnoremap <Leader><space> :noh<CR>
 
-nmap <script> <silent> <unique> <Leader><Leader> :Buffers<CR>
-
 nnoremap <Leader>bd :bufdo bd<CR>
 nnoremap <Leader>q :bufdo q<CR>
 nnoremap <Leader>w :bufdo w<CR>
 
 map <Leader>p :call PutBreakPoint()<CR>
 map <Leader>p1 :call PutBreakPoint1()<CR>
-noremap <Leader>c <C-]>
 
 nnoremap <Leader>cg :!ctags -R<CR>
+noremap <Leader>c <C-]>
 
 map <Leader>mk :!mkdir -p %:h<CR>
 map <Leader>rm :!rm -rf %<CR>
