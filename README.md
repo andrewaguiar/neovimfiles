@@ -19,6 +19,7 @@ After cloning the repo enter nvim and execute `:PlugInstall`
   - NerdTree: Opens a file tree navegation.
   - NerdCommenter: Easy comment / uncomment (mapped as `leader cc` / `leader cu`).
   - Lightline: Beautiful status bar.
+  - PutBreakPoints: Puts breakpoints in the code according the file and project
 
 ## Useful Commands
 
@@ -49,8 +50,7 @@ After cloning the repo enter nvim and execute `:PlugInstall`
 
 ### Programming
 
-  - Put breakpoint 1: `,` + `p`
-  - Put breakpoint 2: `,` + `p1`
+  - Put breakpoint: `,` + `p`
   - Comment: `,` + `cc`
   - Uncomment: `,` + `cu`
   - Generate tags (CTags): `,` + `cg`
