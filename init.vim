@@ -6,7 +6,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'itchyny/lightline.vim'
-Plug 'andrewaguiar/putbreakpoints'
+Plug 'andrewaguiar/putbreakpoints.vim'
 call plug#end()
 
 colorscheme badwolf
