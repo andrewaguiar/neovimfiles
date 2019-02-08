@@ -20,6 +20,7 @@ After cloning the repo enter nvim and execute `:PlugInstall`
   - NerdCommenter: Easy comment / uncomment (mapped as `leader cc` / `leader cu`).
   - Lightline: Beautiful status bar.
   - PutBreakPoints: Puts breakpoints in the code according the file and project
+  - WIP: Fast and simple anotations based on git repo and branch
 
 ## Useful Commands
 

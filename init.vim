@@ -7,6 +7,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'itchyny/lightline.vim'
 Plug 'andrewaguiar/putbreakpoints.vim'
+Plug 'andrewaguiar/wip.vim'
 call plug#end()
 
 colorscheme badwolf
@@ -118,5 +119,12 @@ nnoremap <Leader>w :bufdo w<CR>
 nnoremap <Leader>cg :!ctags -R<CR>
 noremap <Leader>c <C-]>
 
-map <Leader>mk :!mkdir -p %:h<CR>
 map <Leader>rm :!rm -rf %<CR>
+
+augroup Mkdir
+  autocmd!
+  autocmd BufWritePre *
+    \ if !isdirectory(expand("<afile>:p:h")) |
+    \ call mkdir(expand("<afile>:p:h"), "p") |
+    \ endif
+augroup END
