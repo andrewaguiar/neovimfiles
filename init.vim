@@ -8,6 +8,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'itchyny/lightline.vim'
 Plug 'andrewaguiar/putbreakpoints.vim'
 Plug 'andrewaguiar/wip.vim'
+Plug 'andrewaguiar/simple-bash.vim'
 call plug#end()
 
 colorscheme badwolf
@@ -118,13 +119,3 @@ nnoremap <Leader>w :bufdo w<CR>
 
 nnoremap <Leader>cg :!ctags -R<CR>
 noremap <Leader>c <C-]>
-
-map <Leader>rm :!rm -rf %<CR>
-
-augroup Mkdir
-  autocmd!
-  autocmd BufWritePre *
-    \ if !isdirectory(expand("<afile>:p:h")) |
-    \ call mkdir(expand("<afile>:p:h"), "p") |
-    \ endif
-augroup END
