@@ -101,6 +101,7 @@ nnoremap k gk
 " Plugins binding
 nnoremap <C-p> :FZF<CR>
 nmap <F2> :NERDTreeToggle<cr>
+nmap <F8> :WIP<cr>
 
 " Easy window navigation
 nnoremap <S-Left> <C-w>h
