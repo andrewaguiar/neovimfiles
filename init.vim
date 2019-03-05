@@ -6,6 +6,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
 Plug 'andrewaguiar/putbreakpoints.vim'
 Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
@@ -77,7 +78,17 @@ au BufRead,BufNewFile *.scss set filetype=scss
 :hi TabLine ctermfg=White ctermbg=Black
 :hi TabLineSel ctermfg=White ctermbg=DarkGreen
 
-let g:lightline = {'active': {'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified']]}}
+let g:lightline = {
+\   'active': {
+\     'left': [
+\       ['mode', 'paste'],
+\       ['gitbranch', 'readonly', 'relativepath', 'modified']
+\     ]
+\   },
+\   'component_function': {
+\     'gitbranch': 'gitbranch#name'
+\   },
+\ }
 
 " Allows use ; instead of :
 nnoremap ; :
