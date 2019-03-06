@@ -109,10 +109,18 @@ map  <Del>   :bd<CR>
 nnoremap j gj
 nnoremap k gk
 
+command! -nargs=? SearchCurrentWord call s:SearchCurrentWord()
+
+function! s:SearchCurrentWord() abort
+  let l:word = expand("<cword>")
+  execute ":Ag " . l:word
+endfunction
+
 " Plugins binding
 nnoremap <C-p> :FZF<CR>
 nmap <F2> :NERDTreeToggle<cr>
 nmap <F8> :WIP<cr>
+nmap <F9> :SearchCurrentWord()<cr>
 
 " Easy window navigation
 nnoremap <S-Left> <C-w>h
