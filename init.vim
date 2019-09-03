@@ -51,6 +51,8 @@ set cursorline
 set nobackup
 set noswapfile
 
+set iskeyword+=-
+
 " 256 colors
 set t_Co=256
 set background=dark
@@ -71,6 +73,8 @@ set pastetoggle=<F3>
 " Enables mouse
 set mouse=a
 set laststatus=2
+
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 au BufRead,BufNewFile *.scss set filetype=scss
 
@@ -109,6 +113,9 @@ map  <Del>   :bd<CR>
 nnoremap j gj
 nnoremap k gk
 
+" Replaces current selected word
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+
 command! -nargs=? SearchCurrentWord call s:SearchCurrentWord()
 
 function! s:SearchCurrentWord() abort
@@ -116,11 +123,13 @@ function! s:SearchCurrentWord() abort
   execute ":Ag " . l:word
 endfunction
 
+" Searches with Ag current selected word
+nmap <F9> :SearchCurrentWord()<cr>
+
 " Plugins binding
 nnoremap <C-p> :FZF<CR>
 nmap <F2> :NERDTreeToggle<cr>
 nmap <F8> :WIP<cr>
-nmap <F9> :SearchCurrentWord()<cr>
 
 " Easy window navigation
 nnoremap <S-Left> <C-w>h
@@ -131,11 +140,14 @@ nnoremap <S-Right> <C-w>l
 nmap <F4> :.w !xclip -i -sel c<CR><CR>
 vmap <F4> :w !xclip -i -sel c<CR><CR>
 
+" Cancels current searching
 nnoremap <Leader><space> :noh<CR>
 
 nnoremap <Leader>bd :bufdo bd<CR>
 nnoremap <Leader>q :bufdo q<CR>
 nnoremap <Leader>w :bufdo w<CR>
 
-nnoremap <Leader>cg :!ctags -R<CR>
-noremap <Leader>c <C-]>
+nnoremap <Leader><F10> :!ctags -R<CR>
+noremap <F10> <C-]>
+
+nnoremap <Leader>o i<CR><ESC>^
