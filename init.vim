@@ -3,7 +3,8 @@ Plug 'sjl/badwolf'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'rbgrouleff/bclose.vim'
+Plug 'francoiscabrol/ranger.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
@@ -82,6 +83,8 @@ au BufRead,BufNewFile *.scss set filetype=scss
 :hi TabLine ctermfg=White ctermbg=Black
 :hi TabLineSel ctermfg=White ctermbg=DarkGreen
 
+let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+
 let g:lightline = {
 \   'active': {
 \     'left': [
@@ -98,23 +101,19 @@ let g:lightline = {
 nnoremap ; :
 
 " Forces to use h j k l keys
-map <right> <nop>
-map <left> <nop>
-map <up> <nop>
-map <down> <nop>
+map <Right> <nop>
+map <Left> <nop>
+map <Up> <nop>
+map <Down> <nop>
 
 " Use cursor keys to navigate buffers.
 map  <Right> :bnext<CR>
 map  <Left>  :bprev<CR>
 imap <Right> <ESC>:bnext<CR>
 imap <Left>  <ESC>:bprev<CR>
-map  <Del>   :bd<CR>
 
 nnoremap j gj
 nnoremap k gk
-
-" Replaces current selected word
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 
 command! -nargs=? SearchCurrentWord call s:SearchCurrentWord()
 
@@ -128,7 +127,7 @@ nmap <F9> :SearchCurrentWord()<cr>
 
 " Plugins binding
 nnoremap <C-p> :FZF<CR>
-nmap <F2> :NERDTreeToggle<cr>
+nmap <F2> :Ranger<cr>
 nmap <F8> :WIP<cr>
 
 " Easy window navigation
@@ -142,12 +141,13 @@ vmap <F4> :w !xclip -i -sel c<CR><CR>
 
 " Cancels current searching
 nnoremap <Leader><space> :noh<CR>
-
+" Replaces current selected word
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+" Closes all buffers
 nnoremap <Leader>bd :bufdo bd<CR>
-nnoremap <Leader>q :bufdo q<CR>
-nnoremap <Leader>w :bufdo w<CR>
-
+" CTags
 nnoremap <Leader><F10> :!ctags -R<CR>
 noremap <F10> <C-]>
 
+" Splits line and pushes to line above
 nnoremap <Leader>o i<CR><ESC>^
