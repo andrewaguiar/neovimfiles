@@ -17,17 +17,13 @@ call plug#end()
 colorscheme badwolf
 
 set hidden
-
 set tabstop=2     " a tab is two spaces
 set shiftwidth=2
 set expandtab
 set noshowmode
-
 set guicursor=
-
 set nowrap        " don't wrap lines
-set backspace=indent,eol,start
-                  " allow backspacing over everything in insert mode
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
 set number        " always show line numbers
@@ -36,13 +32,10 @@ set shiftwidth=2  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set showmatch     " set show matching parenthesis
 set ignorecase    " ignore case when searching
-set smartcase     " ignore case if search pattern is all lowercase,
-                  "    case-sensitive otherwise
-set smarttab      " insert tabs on the start of a line according to
-                  "    shiftwidth, not tabstop
+set smartcase     " ignore case if search pattern is all lowercase, case-sensitive otherwise
+set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop
 set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
-
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
 set wildignore=*.swp,*.bak,*.pyc,*.class,**/tmp/**,node_modules
@@ -52,31 +45,19 @@ set noerrorbells         " don't beep
 set cursorline
 set nobackup
 set noswapfile
-
 set iskeyword+=-
-
-" 256 colors
 set t_Co=256
 set background=dark
-
-" change the mapleader from \ to ,
-let mapleader=","
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
+set pastetoggle=<F3>
+set mouse=a
+set laststatus=2
 
 filetype plugin indent on
 
 " turn syntax on
 syntax on
-
-set list
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
-
-set pastetoggle=<F3>
-
-" Enables mouse
-set mouse=a
-set laststatus=2
-
-cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 au BufRead,BufNewFile *.scss set filetype=scss
 
@@ -87,19 +68,31 @@ au BufRead,BufNewFile *.scss set filetype=scss
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
 let g:lightline = {
-\   'active': {
-\     'left': [
-\       ['mode', 'paste'],
-\       ['gitbranch', 'readonly', 'relativepath', 'modified']
-\     ]
-\   },
-\   'component_function': {
-\     'gitbranch': 'gitbranch#name'
-\   },
-\ }
+      \   'active': {
+      \     'left': [
+      \       ['mode', 'paste'],
+      \       ['gitbranch', 'readonly', 'relativepath', 'modified']
+      \     ]
+      \   },
+      \   'component_function': {
+      \     'gitbranch': 'gitbranch#name'
+      \   },
+      \ }
+
+command! -nargs=? SearchCurrentWord call s:SearchCurrentWord()
+
+function! s:SearchCurrentWord() abort
+  let l:word = expand("<cword>")
+  execute ":Ag " . l:word
+endfunction
+
+" change the mapleader from \ to ,
+let mapleader=","
 
 " Allows use ; instead of :
 nnoremap ; :
+
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 " Forces to use h j k l keys
 map <Right> <nop>
@@ -116,29 +109,25 @@ imap <Left>  <ESC>:bprev<CR>
 nnoremap j gj
 nnoremap k gk
 
-command! -nargs=? SearchCurrentWord call s:SearchCurrentWord()
-
-function! s:SearchCurrentWord() abort
-  let l:word = expand("<cword>")
-  execute ":Ag " . l:word
-endfunction
-
-" Searches with Ag current selected word
-nmap <F9> :SearchCurrentWord()<cr>
-
-" Plugins binding
-nnoremap <C-p> :FZF<CR>
-nmap <F2> :Ranger<cr>
-nmap <F8> :WIP<cr>
-
 " Easy window navigation
 nnoremap <S-Left> <C-w>h
 nnoremap <S-Down> <C-w>j
 nnoremap <S-Up> <C-w>k
 nnoremap <S-Right> <C-w>l
 
+nnoremap <C-p> :Files<CR>
+
+" File navigation using Ranger
+nmap <F2> :Ranger<cr>
+" Copy to outside of nvim
 nmap <F4> :.w !xclip -i -sel c<CR><CR>
 vmap <F4> :w !xclip -i -sel c<CR><CR>
+" project + branch based annotation file
+nmap <F8> :WIP<cr>
+" Search current world using Ag
+nmap <F9> :SearchCurrentWord()<cr>
+" Ctags
+noremap <F10> <C-]>
 
 " Cancels current searching
 nnoremap <Leader><space> :noh<CR>
@@ -148,7 +137,8 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>bd :bufdo bd<CR>
 " CTags
 nnoremap <Leader><F10> :!ctags -R<CR>
-noremap <F10> <C-]>
-
 " Splits line and pushes to line above
 nnoremap <Leader>o i<CR><ESC>^
+
+" executes the default macro 'q'
+nnoremap <Leader>q @q
