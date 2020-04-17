@@ -9,6 +9,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'ap/vim-buftabline'
+Plug 'tpope/vim-endwise'
 Plug 'andrewaguiar/putbreakpoints.vim'
 Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
@@ -53,6 +54,7 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 set pastetoggle=<F3>
 set mouse=a
 set laststatus=2
+set encoding=UTF-8
 
 filetype plugin indent on
 
@@ -78,6 +80,8 @@ let g:lightline = {
       \     'gitbranch': 'gitbranch#name'
       \   },
       \ }
+
+let g:ranger_command_override = 'ranger --confdir='.$HOME.'/.config/nvim/ranger.conf/'
 
 command! -nargs=? SearchCurrentWord call s:SearchCurrentWord()
 
@@ -119,9 +123,16 @@ nnoremap <C-p> :Files<CR>
 
 " File navigation using Ranger
 nmap <F2> :Ranger<cr>
+
 " Copy to outside of nvim
-nmap <F4> :.w !xclip -i -sel c<CR><CR>
-vmap <F4> :w !xclip -i -sel c<CR><CR>
+if has('mac')
+  nmap <F4> :.w !pbcopy -i -sel c<CR><CR>
+  vmap <F4> :w !pbcopy -i -sel c<CR><CR>
+else
+  nmap <F4> :.w !xclip -i -sel c<CR><CR>
+  vmap <F4> :w !xclip -i -sel c<CR><CR>
+endif
+
 " project + branch based annotation file
 nmap <F8> :WIP<cr>
 " Search current world using Ag
