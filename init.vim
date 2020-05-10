@@ -13,6 +13,7 @@ Plug 'tpope/vim-endwise'
 Plug 'andrewaguiar/putbreakpoints.vim'
 Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
+Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 colorscheme badwolf
@@ -90,6 +91,16 @@ function! s:SearchCurrentWord() abort
   execute ":Ag " . l:word
 endfunction
 
+command! -nargs=? ExecuteTest call s:ExecuteTest()
+
+function! s:ExecuteTest() abort
+  if expand('%') =~ '.rb'
+    execute ":terminal bundle exec rspec %"
+  else
+    echoerr 'Testing macro not found'
+  endif
+endfunction
+
 " change the mapleader from \ to ,
 let mapleader=","
 
@@ -145,7 +156,9 @@ nnoremap <Leader><space> :noh<CR>
 " Replaces current selected word
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 " Closes all buffers
-nnoremap <Leader>bd :bufdo bd<CR>
+nnoremap <Leader>B :bd!<CR>
+" Save all buffers
+nnoremap <Leader>w :w<CR>
 " CTags
 nnoremap <Leader><F10> :!ctags -R<CR>
 " Splits line and pushes to line above
@@ -153,3 +166,7 @@ nnoremap <Leader>o i<CR><ESC>^
 
 " executes the default macro 'q'
 nnoremap <Leader>q @q
+
+nnoremap <Leader>t :terminal 
+
+nmap <Leader>T :ExecuteTest()<cr>
