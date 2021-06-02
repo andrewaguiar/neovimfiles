@@ -14,6 +14,7 @@ Plug 'andrewaguiar/putbreakpoints.vim'
 Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'mhinz/vim-mix-format'
 call plug#end()
 
 colorscheme badwolf
@@ -40,7 +41,7 @@ set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
-set wildignore=*.swp,*.bak,*.pyc,*.class,**/tmp/**,node_modules
+set wildignore=*.swp,*.bak,*.pyc,*.class,**/tmp/**,node_modules,_build
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
@@ -83,6 +84,8 @@ let g:lightline = {
       \ }
 
 let g:ranger_command_override = 'ranger --confdir='.$HOME.'/.config/nvim/ranger.conf/'
+
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 
 command! -nargs=? SearchCurrentWord call s:SearchCurrentWord()
 
