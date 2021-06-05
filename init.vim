@@ -15,10 +15,13 @@ Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-mix-format'
+Plug 'mhinz/vim-startify'
 call plug#end()
 
 colorscheme badwolf
 
+syntax on
+filetype plugin indent on
 set hidden
 set tabstop=2     " a tab is two spaces
 set shiftwidth=2
@@ -30,6 +33,7 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
 set number        " always show line numbers
+set relativenumber
 set ruler
 set shiftwidth=2  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
@@ -53,15 +57,10 @@ set t_Co=256
 set background=dark
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-set pastetoggle=<F3>
+set clipboard=unnamedplus
 set mouse=a
 set laststatus=2
 set encoding=UTF-8
-
-filetype plugin indent on
-
-" turn syntax on
-syntax on
 
 au BufRead,BufNewFile *.scss set filetype=scss
 
@@ -102,22 +101,11 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-
 command! -nargs=? SearchCurrentWord call s:SearchCurrentWord()
 
 function! s:SearchCurrentWord() abort
   let l:word = expand("<cword>")
   execute ":Ag " . l:word
-endfunction
-
-command! -nargs=? ExecuteTest call s:ExecuteTest()
-
-function! s:ExecuteTest() abort
-  if expand('%') =~ '.rb'
-    execute ":terminal bundle exec rspec %"
-  else
-    echoerr 'Testing macro not found'
-  endif
 endfunction
 
 " change the mapleader from \ to ,
@@ -134,11 +122,11 @@ map <Left> <nop>
 map <Up> <nop>
 map <Down> <nop>
 
-" Use cursor keys to navigate buffers.
-map  <Right> :bnext<CR>
-map  <Left>  :bprev<CR>
-imap <Right> <ESC>:bnext<CR>
-imap <Left>  <ESC>:bprev<CR>
+" Use Tab to buffers.
+map  <Tab> :bnext<CR>
+map  <S-Tab> :bprev<CR>
+imap <Tab> <ESC>:bnext<CR>
+imap <S-Tab> <ESC>:bprev<CR>
 
 nnoremap j gj
 nnoremap k gk
@@ -151,41 +139,25 @@ nnoremap <S-Right> <C-w>l
 
 nnoremap <C-p> :Files<CR>
 
-" File navigation using Ranger
-nmap <F2> :Ranger<cr>
+nmap <F2> :Ranger<cr> " File navigation using Ranger
 
-" Copy to outside of nvim
-if has('mac')
-  nmap <F4> :.w !pbcopy -i -sel c<CR><CR>
-  vmap <F4> :w !pbcopy -i -sel c<CR><CR>
-else
-  nmap <F4> :.w !xclip -i -sel c<CR><CR>
-  vmap <F4> :w !xclip -i -sel c<CR><CR>
-endif
-
-" project + branch based annotation file
-nmap <F8> :WIP<cr>
+nmap <F8> :WIP<cr> " project + branch based annotation file
 " Search current world using Ag
 nmap <F9> :SearchCurrentWord()<cr>
 " Ctags
 noremap <F10> <C-]>
 
-" Cancels current searching
-nnoremap <Leader><space> :noh<CR>
-" Replaces current selected word
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
-" Closes all buffers
-nnoremap <Leader>B :bd!<CR>
-" Save all buffers
+nnoremap <Leader><space> :noh<CR>          " Cancels current searching
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/     " Replaces current selected word
+
+nnoremap <Leader>b :bd!<CR>
 nnoremap <Leader>w :w<CR>
+
 " CTags
 nnoremap <Leader><F10> :!ctags -R<CR>
+
 " Splits line and pushes to line above
 nnoremap <Leader>o i<CR><ESC>^
 
 " executes the default macro 'q'
 nnoremap <Leader>q @q
-
-nnoremap <Leader>t :terminal 
-
-nmap <Leader>T :ExecuteTest()<cr>
