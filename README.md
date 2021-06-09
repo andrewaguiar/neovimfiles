@@ -13,13 +13,13 @@ After cloning the repo enter nvim and execute `:PlugInstall`
 
 ## Plugins
 
-  - Badwolf: Color schema BadWolf for the win.
+  - Gruvbox: Color schema Gruvbox for the win.
   - Vim-polyglot: Syntax for several languages.
   - FZF: Fuzzy searching and auto complete (mapped as `ctrl p`).
   - Ranger: Opens a file navigation.
+  - NerdTree: Another more traditional file navigation.
   - NerdCommenter: Easy comment / uncomment (mapped as `leader cc` / `leader cu`).
   - Lightline: Beautiful status bar.
-  - PutBreakPoints: Puts breakpoints in the code according the file and project
   - WIP: Fast and simple anotations based on git repo and branch
 
 ## Useful Commands
@@ -27,41 +27,28 @@ After cloning the repo enter nvim and execute `:PlugInstall`
   - Leader: `,`
   - Command: `;`
   - Navigation: `h j k l`
-  - Buffer navigation: `← →`
+  - Buffer navigation: `Tag`, `S-Tab`
   - Window navigation: `shift` + `← → ↑ ↓`
   - Ranger: `f2`
-
-### Copy / Paste
-
-  - Paste from External: `f3`
-  - Copy to External: `f4`
+  - NerdTree: `f3`
 
 ### Searching
 
-  - Clean searching: `,` + `<space>`
-  - Search files: `ctrl` + `p`
-  - Auto complete: `ctrl` + `p`
-  - Search terms in files: `;` + `Ag <term> [paths]`
-  - Search current world: `f9`
+  - Clean searching: `,<space>`
+  - Search git files: `ctrl p`
+  - Search git files: `ctrl f`
+  - Auto complete: `ctrl p`
+  - Search terms in files: `,a`
+  - Search current world: `,w`
 
 ### Replace
 
-  - Replace current world: `,` + `s`
-
-### All buffers
-
-  - Delete all buffers: `Del`
+  - Replace current world: `,r`
 
 ### Programming
 
-  - Put breakpoint: `,` + `p`
   - Comment: `,` + `cc`
   - Uncomment: `,` + `cu`
   - Open a project + branch based annotation file: `f8`
-  - Generate tags (CTags): `,` + `f10`
-  - Search tags (CTags): `,` + `f10`
-
-### Files / Dir shortcuts
-
-  - Create missing buffer path: `,` + `mk`
-  - Remove current buffer file: `,` + `rm`
+  - Generate tags (CTags): `,tt`
+  - Search tags (CTags): `,t`

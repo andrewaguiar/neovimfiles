@@ -1,5 +1,6 @@
 call plug#begin()
 Plug 'sjl/badwolf'
+Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -10,15 +11,11 @@ Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-endwise'
-Plug 'andrewaguiar/putbreakpoints.vim'
 Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'mhinz/vim-mix-format'
-Plug 'mhinz/vim-startify'
 call plug#end()
 
-colorscheme badwolf
+colorscheme gruvbox
 
 syntax on
 filetype plugin indent on
@@ -68,7 +65,7 @@ au BufRead,BufNewFile *.scss set filetype=scss
 :hi TabLine ctermfg=White ctermbg=Black
 :hi TabLineSel ctermfg=White ctermbg=DarkGreen
 
-let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore node_modules --ignore *.log -g ""'
 
 let g:lightline = {
       \   'active': {
@@ -101,20 +98,11 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-command! -nargs=? SearchCurrentWord call s:SearchCurrentWord()
-
-function! s:SearchCurrentWord() abort
-  let l:word = expand("<cword>")
-  execute ":Ag " . l:word
-endfunction
-
 " change the mapleader from \ to ,
 let mapleader=","
 
 " Allows use ; instead of :
 nnoremap ; :
-
-cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 " Forces to use h j k l keys
 map <Right> <nop>
@@ -125,8 +113,6 @@ map <Down> <nop>
 " Use Tab to buffers.
 map  <Tab> :bnext<CR>
 map  <S-Tab> :bprev<CR>
-imap <Tab> <ESC>:bnext<CR>
-imap <S-Tab> <ESC>:bprev<CR>
 
 nnoremap j gj
 nnoremap k gk
@@ -137,27 +123,28 @@ nnoremap <S-Down> <C-w>j
 nnoremap <S-Up> <C-w>k
 nnoremap <S-Right> <C-w>l
 
-nnoremap <C-p> :Files<CR>
+" File navigation using Ranger
+nmap <F2> :Ranger<cr>
 
-nmap <F2> :Ranger<cr> " File navigation using Ranger
+" project + branch based annotation file
+nmap <F8> :WIP<cr>
 
-nmap <F8> :WIP<cr> " project + branch based annotation file
+" Cancels current searching
+nnoremap <Leader><space> :noh<CR>
+
+" Search only git managed files
+nnoremap <C-p> :GFiles<CR>
+" Search all files
+nnoremap <C-f> :Files<CR>
+
+" Replaces current selected word
+nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 " Search current world using Ag
-nmap <F9> :SearchCurrentWord()<cr>
-" Ctags
-noremap <F10> <C-]>
+nnoremap <Leader>w :execute ":Ag " . expand("<cword>")<CR>
 
-nnoremap <Leader><space> :noh<CR>          " Cancels current searching
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/     " Replaces current selected word
-
-nnoremap <Leader>b :bd!<CR>
-nnoremap <Leader>w :w<CR>
+" Open Search
+nnoremap <Leader>a :Ag 
 
 " CTags
-nnoremap <Leader><F10> :!ctags -R<CR>
-
-" Splits line and pushes to line above
-nnoremap <Leader>o i<CR><ESC>^
-
-" executes the default macro 'q'
-nnoremap <Leader>q @q
+nnoremap <Leader>tt :!ctags -R<CR>
+noremap <Leader>t <C-]>
