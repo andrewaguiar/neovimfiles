@@ -27,8 +27,7 @@ After cloning the repo enter nvim and execute `:PlugInstall`
   - Navigation: `h j k l`
   - Buffer navigation: `Tag`, `S-Tab`
   - Window navigation: `shift` + `← → ↑ ↓`
-  - Ranger: `f2`
-  - NerdTree: `f3`
+  - Ranger: `,b`
 
 ### Searching
 

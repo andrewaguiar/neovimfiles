@@ -1,16 +1,13 @@
 call plug#begin()
-Plug 'sjl/badwolf'
 Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'rbgrouleff/bclose.vim'
 Plug 'francoiscabrol/ranger.vim'
-Plug 'scrooloose/nerdcommenter'
 Plug 'itchyny/lightline.vim'
-Plug 'itchyny/vim-gitbranch'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-endwise'
+Plug 'airblade/vim-gitgutter'
 Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
 call plug#end()
@@ -58,45 +55,44 @@ set clipboard=unnamedplus
 set mouse=a
 set laststatus=2
 set encoding=UTF-8
+set signcolumn=yes
 
 au BufRead,BufNewFile *.scss set filetype=scss
 
-:hi TabLineFill ctermfg=Black ctermbg=Black
-:hi TabLine ctermfg=White ctermbg=Black
-:hi TabLineSel ctermfg=White ctermbg=DarkGreen
+" :hi TabLineFill ctermfg=Black ctermbg=Black
+" :hi TabLine ctermfg=White ctermbg=Black
+" :hi TabLineSel ctermfg=White ctermbg=DarkGreen
 
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore node_modules --ignore *.log -g ""'
 
 let g:lightline = {
+      \   'colorscheme': 'gruvbox',
       \   'active': {
       \     'left': [
       \       ['mode', 'paste'],
-      \       ['gitbranch', 'readonly', 'relativepath', 'modified']
+      \       ['readonly', 'relativepath', 'modified']
       \     ]
-      \   },
-      \   'component_function': {
-      \     'gitbranch': 'gitbranch#name'
-      \   },
+      \   }
       \ }
 
 let g:ranger_command_override = 'ranger --confdir='.$HOME.'/.config/nvim/ranger.conf/'
 
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+let g:fzf_colors = {
+  \   'fg':      ['fg', 'Normal'],
+  \   'bg':      ['bg', 'Normal'],
+  \   'hl':      ['fg', 'Comment'],
+  \   'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \   'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \   'hl+':     ['fg', 'Statement'],
+  \   'info':    ['fg', 'PreProc'],
+  \   'prompt':  ['fg', 'Conditional'],
+  \   'pointer': ['fg', 'Exception'],
+  \   'marker':  ['fg', 'Keyword'],
+  \   'spinner': ['fg', 'Label'],
+  \   'header':  ['fg', 'Comment']
+  \ }
 
 " change the mapleader from \ to ,
 let mapleader=","
@@ -123,28 +119,17 @@ nnoremap <S-Down> <C-w>j
 nnoremap <S-Up> <C-w>k
 nnoremap <S-Right> <C-w>l
 
-" File navigation using Ranger
-nmap <F2> :Ranger<cr>
+nmap <F8> :WIP<CR>
 
-" project + branch based annotation file
-nmap <F8> :WIP<cr>
-
-" Cancels current searching
 nnoremap <Leader><space> :noh<CR>
-
-" Search only git managed files
 nnoremap <C-p> :GFiles<CR>
-" Search all files
 nnoremap <C-f> :Files<CR>
-
-" Replaces current selected word
-nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
-" Search current world using Ag
-nnoremap <Leader>w :execute ":Ag " . expand("<cword>")<CR>
-
-" Open Search
 nnoremap <Leader>a :Ag 
+nnoremap <Leader>w :execute ":Ag " . expand("<cword>")<CR>
+nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
+nnoremap <Leader>b :Ranger<CR>
 
 " CTags
 nnoremap <Leader>tt :!ctags -R<CR>
 noremap <Leader>t <C-]>
+
