@@ -4,6 +4,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'francoiscabrol/ranger.vim'
+Plug 'preservim/nerdcommenter'
 Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-endwise'
@@ -58,10 +59,6 @@ set encoding=UTF-8
 set signcolumn=yes
 
 au BufRead,BufNewFile *.scss set filetype=scss
-
-" :hi TabLineFill ctermfg=Black ctermbg=Black
-" :hi TabLine ctermfg=White ctermbg=Black
-" :hi TabLineSel ctermfg=White ctermbg=DarkGreen
 
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore node_modules --ignore *.log -g ""'
 
@@ -132,4 +129,3 @@ nnoremap <Leader>b :Ranger<CR>
 " CTags
 nnoremap <Leader>tt :!ctags -R<CR>
 noremap <Leader>t <C-]>
-
