@@ -9,6 +9,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter'
+Plug 'pbogut/fzf-mru.vim'
 Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
 call plug#end()
@@ -28,7 +29,6 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
 set number        " always show line numbers
-set relativenumber
 set ruler
 set shiftwidth=2  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
@@ -59,6 +59,8 @@ set encoding=UTF-8
 set signcolumn=yes
 
 au BufRead,BufNewFile *.scss set filetype=scss
+
+let g:fzf_mru_relative=1
 
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore node_modules --ignore *.log -g ""'
 
@@ -91,6 +93,8 @@ let g:fzf_colors = {
   \   'header':  ['fg', 'Comment']
   \ }
 
+" let g:NERDCreateDefaultMappings = 0
+
 " change the mapleader from \ to ,
 let mapleader=","
 
@@ -116,8 +120,6 @@ nnoremap <S-Down> <C-w>j
 nnoremap <S-Up> <C-w>k
 nnoremap <S-Right> <C-w>l
 
-nmap <F8> :WIP<CR>
-
 nnoremap <Leader><space> :noh<CR>
 nnoremap <C-p> :GFiles<CR>
 nnoremap <C-f> :Files<CR>
@@ -125,6 +127,9 @@ nnoremap <Leader>a :Ag
 nnoremap <Leader>w :execute ":Ag " . expand("<cword>")<CR>
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>b :Ranger<CR>
+nnoremap <Leader>8 :WIP<CR>
+nnoremap <Leader>q :bd!<CR>
+nnoremap <Leader>u :FZFMru<CR>
 
 " CTags
 nnoremap <Leader>tt :!ctags -R<CR>
