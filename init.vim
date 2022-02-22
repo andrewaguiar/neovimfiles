@@ -4,14 +4,15 @@ Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'francoiscabrol/ranger.vim'
+Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter'
-Plug 'pbogut/fzf-mru.vim'
 Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 colorscheme gruvbox
@@ -65,14 +66,14 @@ let g:fzf_mru_relative=1
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore node_modules --ignore *.log -g ""'
 
 let g:lightline = {
-      \   'colorscheme': 'gruvbox',
-      \   'active': {
-      \     'left': [
-      \       ['mode', 'paste'],
-      \       ['readonly', 'relativepath', 'modified']
-      \     ]
-      \   }
-      \ }
+  \   'colorscheme': 'gruvbox',
+  \   'active': {
+  \     'left': [
+  \       ['mode', 'paste'],
+  \       ['readonly', 'relativepath', 'modified']
+  \     ]
+  \   }
+  \ }
 
 let g:ranger_command_override = 'ranger --confdir='.$HOME.'/.config/nvim/ranger.conf/'
 
@@ -120,13 +121,16 @@ nnoremap <S-Down> <C-w>j
 nnoremap <S-Up> <C-w>k
 nnoremap <S-Right> <C-w>l
 
-nnoremap <Leader><space> :noh<CR>
+" Leader and Ctrl commands
 nnoremap <C-p> :GFiles<CR>
 nnoremap <C-f> :Files<CR>
+nnoremap <Leader><space> :noh<CR>
 nnoremap <Leader>a :Ag 
 nnoremap <Leader>w :execute ":Ag " . expand("<cword>")<CR>
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>b :Ranger<CR>
+nnoremap <Leader>n :NERDTreeFind<CR>
+nnoremap <Leader><Leader> :NERDTreeToggle<CR>
 nnoremap <Leader>8 :WIP<CR>
 nnoremap <Leader>q :bd!<CR>
 nnoremap <Leader>u :FZFMru<CR>
@@ -134,3 +138,12 @@ nnoremap <Leader>u :FZFMru<CR>
 " CTags
 nnoremap <Leader>tt :!ctags -R<CR>
 noremap <Leader>t <C-]>
+
+" Functions
+
+" RemoveAllEmptyLines: removes all empty lines
+command! -nargs=* RemoveAllEmptyLines call s:RemoveAllEmptyLines()
+
+function! s:RemoveAllEmptyLines() abort
+  execute ":g/^$/d"
+endfunction
