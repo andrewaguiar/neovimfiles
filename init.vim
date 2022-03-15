@@ -10,6 +10,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
 Plug 'ryanoasis/vim-devicons'
@@ -127,8 +128,7 @@ nnoremap <S-Up> <C-w>k
 nnoremap <S-Right> <C-w>l
 
 " Leader and Ctrl commands
-nnoremap <C-p> :GFiles<CR>
-nnoremap <C-f> :Files<CR>
+nnoremap <C-p> :GFilesOrFiles<CR>
 nnoremap <Leader><space> :noh<CR>
 nnoremap <Leader>a :Ag 
 nnoremap <Leader>w :execute ":Ag " . expand("<cword>")<CR>
@@ -156,6 +156,17 @@ function! s:RemoveAllEmptyLines() abort
   execute ":g/^$/d"
 endfunction
 
+" GFilesOrFiles
+command! -nargs=* GFilesOrFiles call s:GFilesOrFiles()
+
+function! s:GFilesOrFiles() abort
+  silent! !git rev-parse --is-inside-work-tree
+  if v:shell_error == 0
+    execute ":GFiles"
+  else
+    execute ":Files"
+  endif
+endfunction
 
 " JSONBeautify: removes all empty lines
 command! -nargs=* JSONBeautify call s:JSONBeautify()
