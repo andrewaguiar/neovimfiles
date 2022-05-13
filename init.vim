@@ -156,7 +156,7 @@ function! s:RemoveAllEmptyLines() abort
   execute ":g/^$/d"
 endfunction
 
-" GFilesOrFiles
+" GFilesOrFiles: opens Files or GFiles depending if we are on git folder or not
 command! -nargs=* GFilesOrFiles call s:GFilesOrFiles()
 
 function! s:GFilesOrFiles() abort
@@ -168,7 +168,7 @@ function! s:GFilesOrFiles() abort
   endif
 endfunction
 
-" JSONBeautify: removes all empty lines
+" JSONBeautify: beautifies current file
 command! -nargs=* JSONBeautify call s:JSONBeautify()
 
 function! s:JSONBeautify() abort
