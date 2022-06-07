@@ -14,6 +14,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
 Plug 'ryanoasis/vim-devicons'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 colorscheme gruvbox
@@ -134,8 +135,7 @@ nnoremap <Leader>a :Ag
 nnoremap <Leader>w :execute ":Ag " . expand("<cword>")<CR>
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <Leader>b :Ranger<CR>
-nnoremap <Leader>n :NERDTreeFind<CR>
-nnoremap <Leader><Leader> :NERDTreeToggle<CR>
+nnoremap <Leader><Leader> :NERDTreeToggleFind<CR>
 nnoremap <Leader>8 :WIP<CR>
 nnoremap <Leader>q :bd!<CR>
 nnoremap <Leader>u :FZFMru<CR>
@@ -143,11 +143,39 @@ nnoremap <Leader>u :FZFMru<CR>
 nnoremap <C-Right> :vertical resize +5<CR>
 nnoremap <C-Left> :vertical resize -5<CR>
 
-" CTags
-nnoremap <Leader>tt :!ctags -R<CR>
-noremap <Leader>t <C-]>
+" NERDTree
 
-" Functions
+" NERDTreeToggleFind: toggle nerdtree on current file
+command! -nargs=* NERDTreeToggleFind call s:NERDTreeToggleFind()
+
+function! s:NERDTreeToggleFind() abort
+  if exists("g:NERDTree") && g:NERDTree.IsOpen()
+    execute ":NERDTreeClose"
+  else
+    execute ":NERDTreeFind"
+  endif
+endfunction
+
+" COC
+
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : CheckBackspace() ? "\<TAB>" : coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Custom Functions
 
 " RemoveAllEmptyLines: removes all empty lines
 command! -nargs=* RemoveAllEmptyLines call s:RemoveAllEmptyLines()
