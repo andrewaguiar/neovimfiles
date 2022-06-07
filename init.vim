@@ -3,7 +3,6 @@ Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'francoiscabrol/ranger.vim'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'itchyny/lightline.vim'
@@ -84,8 +83,6 @@ let g:lightline = {
   \   }
   \ }
 
-let g:ranger_command_override = 'ranger --confdir='.$HOME.'/.config/nvim/ranger.conf/'
-
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 
 let g:fzf_colors = {
@@ -134,8 +131,7 @@ nnoremap <Leader><space> :noh<CR>
 nnoremap <Leader>a :Ag 
 nnoremap <Leader>w :execute ":Ag " . expand("<cword>")<CR>
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
-nnoremap <Leader>b :Ranger<CR>
-nnoremap <Leader><Leader> :NERDTreeToggleFind<CR>
+nnoremap <Leader><Leader> :NERDTreeToggleSmartly<CR>
 nnoremap <Leader>8 :WIP<CR>
 nnoremap <Leader>q :bd!<CR>
 nnoremap <Leader>u :FZFMru<CR>
@@ -145,14 +141,18 @@ nnoremap <C-Left> :vertical resize -5<CR>
 
 " NERDTree
 
-" NERDTreeToggleFind: toggle nerdtree on current file
-command! -nargs=* NERDTreeToggleFind call s:NERDTreeToggleFind()
+" NERDTreeToggleSmartly: toggle nerdtree on current file
+command! -nargs=* NERDTreeToggleSmartly call s:NERDTreeToggleSmartly()
 
-function! s:NERDTreeToggleFind() abort
+function! s:NERDTreeToggleSmartly() abort
   if exists("g:NERDTree") && g:NERDTree.IsOpen()
     execute ":NERDTreeClose"
   else
-    execute ":NERDTreeFind"
+    if expand('%:p') == ''
+      execute ":NERDTree"
+    else
+      execute ":NERDTreeFind"
+    endif
   endif
 endfunction
 
