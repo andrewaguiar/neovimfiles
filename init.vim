@@ -1,3 +1,22 @@
+"                    .                    
+"    ##############..... ##############   
+"    ##############......##############   
+"      ##########..........##########     
+"      ##########........##########       
+"      ##########.......##########        
+"      ##########.....##########..        
+"      ##########....##########.....      
+"    ..##########..##########.........    
+"  ....##########.#########.............  
+"    ..################JJJ............    
+"      ################.............      
+"      ##############.JJJ.JJJJJJJJJJ      
+"      ############...JJ...JJ..JJ  JJ     
+"      ##########....JJ...JJ..JJ  JJ      
+"      ########......JJJ..JJJ JJJ JJJ     
+"      ######    .........                
+"
+"
 call plug#begin()
 Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
@@ -14,6 +33,7 @@ Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 colorscheme gruvbox
@@ -158,22 +178,44 @@ endfunction
 
 " COC
 
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : CheckBackspace() ? "\<TAB>" : coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! CheckBackspace() abort
+" Use <tab> and <S-tab> to navigate completion list: >
+function! s:check_back_space() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+  return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" Insert <tab> when previous text is space, refresh completion if not.
+inoremap <silent><expr> <TAB>
+  \ coc#pum#visible() ? coc#pum#next(1):
+  \ <SID>check_back_space() ? "\<Tab>" :
+  \ coc#refresh()
+
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Use <c-space> to trigger completion: >
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use <CR> to confirm completion, use:
+inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+
+" To make <CR> to confirm selection of selected complete item or notify coc.nvim
+" to format on enter, use:
+inoremap <silent><expr> <CR> coc#pum#visible() ?
+  \ coc#_select_confirm() :
+  \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+nmap <Leader>ff <Plug>(coc-fix-current)
+nmap <Leader>fa <Plug>(coc-codeaction)
 
 " Custom Functions
 
