@@ -33,6 +33,7 @@ Plug 'andrewaguiar/wip.vim'
 Plug 'andrewaguiar/simple-bash.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'elixir-editors/vim-elixir'
 Plug 'rust-lang/rust.vim'
 call plug#end()
 
@@ -244,3 +245,36 @@ command! -nargs=* JSONBeautify call s:JSONBeautify()
 function! s:JSONBeautify() abort
   execute "%!jq ."
 endfunction
+
+" LineBreakAt: Insert a newline after each specified string (or before if use '!') if no arguments, use previous search.
+"
+" https://vim.fandom.com/wiki/Add_a_newline_after_given_patterns
+"
+command! -bang -nargs=* -range LineBreakAt <line1>,<line2>call LineBreakAt('<bang>', <f-args>)
+
+function! LineBreakAt(bang, ...) range
+  let save_search = @/
+  if empty(a:bang)
+    let before = ''
+    let after = '\ze.'
+    let repl = '&\r'
+  else
+    let before = '.\zs'
+    let after = ''
+    let repl = '\r&'
+  endif
+
+  let pat_list = map(deepcopy(a:000), "escape(v:val, '/\\.*$^~[')")
+
+  if empty(pat_list)
+    let find = @/
+  else
+    let find = join(pat_list, '\|')
+  endif
+
+  let find = before . '\%(' . find . '\)' . after
+  " Example: 10,20s/\%(arg1\|arg2\|arg3\)\ze./&\r/ge
+  execute a:firstline . ',' . a:lastline . 's/'. find . '/' . repl . '/ge'
+  let @/ = save_search
+endfunction
+

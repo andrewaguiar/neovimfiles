@@ -1,0 +1,4 @@
+{
+  "elixirLS.dialyzerEnabled": false,
+  "javascript.suggestionActions.enabled": false
+}
