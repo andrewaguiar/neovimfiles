@@ -35,6 +35,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'elixir-editors/vim-elixir'
 Plug 'rust-lang/rust.vim'
+Plug 'github/copilot.vim'
 call plug#end()
 
 colorscheme gruvbox
@@ -124,8 +125,14 @@ let g:fzf_colors = {
 " change the mapleader from \ to ,
 let mapleader=","
 
+" Github Copilot
+let g:copilot_filetypes = {'*': v:false}
+let g:copilot_node_command = "/home/andrew/.asdf/installs/nodejs/16.15.0/bin/node"
+
 " Allows use ; instead of :
 nnoremap ; :
+
+imap <C-g> <M-\>
 
 " Forces to use h j k l keys
 map <Right> <nop>
@@ -149,13 +156,13 @@ nnoremap <S-Right> <C-w>l
 " Leader and Ctrl commands
 nnoremap <C-p> :GFilesOrFiles<CR>
 nnoremap <Leader><space> :noh<CR>
+nnoremap <Leader>d d^==^
 nnoremap <Leader>a :Ag 
 nnoremap <Leader>w :execute ":Ag " . expand("<cword>")<CR>
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <Leader><Leader> :NERDTreeToggleSmartly<CR>
 nnoremap <Leader>8 :WIP<CR>
 nnoremap <Leader>q :bd!<CR>
-nnoremap <Leader>u :FZFMru<CR>
 
 nnoremap <C-Right> :vertical resize +5<CR>
 nnoremap <C-Left> :vertical resize -5<CR>
