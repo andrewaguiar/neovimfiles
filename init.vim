@@ -30,7 +30,6 @@ Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'andrewaguiar/wip.vim'
-Plug 'andrewaguiar/simple-bash.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'elixir-editors/vim-elixir'
@@ -284,3 +283,18 @@ function! LineBreakAt(bang, ...) range
   let @/ = save_search
 endfunction
 
+" Del: deletes current file/buffer
+command! -nargs=? Del call s:Del()
+
+function! s:Del() abort
+  let currentFile = resolve(expand('%:p'))
+
+  if !filereadable(currentFile)
+    echo "current file unreadable " . currentFile
+    return
+  endif
+
+  execute "!rm " . currentFile
+
+  bd!
+endfunction
