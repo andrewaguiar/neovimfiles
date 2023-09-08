@@ -89,6 +89,10 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
   \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
+let g:loaded_python3_provider = 0
+
+let g:loaded_perl_provider=0
+
 let g:fzf_mru_relative=1
 
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore node_modules --ignore *.log -g ""'
@@ -298,3 +302,12 @@ function! s:Del() abort
 
   bd!
 endfunction
+
+" creates dir when trying to save a buffer inside a absent dir
+augroup Mkdir
+  autocmd!
+  autocmd BufWritePre *
+    \ if !isdirectory(expand("<afile>:p:h")) |
+    \ call mkdir(expand("<afile>:p:h"), "p") |
+    \ endif
+augroup END
