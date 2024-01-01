@@ -228,7 +228,7 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <Leader>ff <Plug>(coc-fix-current)
 nmap <Leader>fa <Plug>(coc-codeaction)
 
-tnoremap <Esc> <C-\><C-n>
+tnoremap <C-c> <C-\><C-n>
 
 " Custom Functions
 
