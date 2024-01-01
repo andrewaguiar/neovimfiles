@@ -165,6 +165,7 @@ nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <Leader><Leader> :NERDTreeToggleSmartly<CR>
 nnoremap <Leader>8 :WIP<CR>
 nnoremap <Leader>q :bd!<CR>
+nnoremap <Leader>t :terminal<CR>
 
 nnoremap <C-Right> :vertical resize +5<CR>
 nnoremap <C-Left> :vertical resize -5<CR>
@@ -226,6 +227,8 @@ nmap <silent> gr <Plug>(coc-references)
 
 nmap <Leader>ff <Plug>(coc-fix-current)
 nmap <Leader>fa <Plug>(coc-codeaction)
+
+tnoremap <Esc> <C-\><C-n>
 
 " Custom Functions
 
