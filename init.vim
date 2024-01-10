@@ -34,6 +34,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'elixir-editors/vim-elixir'
 Plug 'rust-lang/rust.vim'
+Plug 'wsdjeg/vim-fetch'
 call plug#end()
 
 colorscheme gruvbox
