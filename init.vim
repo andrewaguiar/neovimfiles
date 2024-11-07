@@ -34,7 +34,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'elixir-editors/vim-elixir'
 Plug 'rust-lang/rust.vim'
-Plug 'wsdjeg/vim-fetch'
 call plug#end()
 
 colorscheme gruvbox
@@ -219,6 +218,8 @@ inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 inoremap <silent><expr> <CR> coc#pum#visible() ?
   \ coc#_select_confirm() :
   \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+let g:coc_node_path = '/home/andrew/.asdf/installs/nodejs/17.1.0/bin/node'
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
