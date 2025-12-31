@@ -1,6 +1,22 @@
--- =============================================================================
--- PLUGIN MANAGEMENT (vim-plug)
--- =============================================================================
+--                    .                    
+--    ##############..... ##############   
+--    ##############......##############   
+--      ##########..........##########     
+--      ##########........##########       
+--      ##########.......##########        
+--      ##########.....##########..        
+--      ##########....##########.....      
+--      ##########..##########.........    
+--      ##########.#########.............  
+--      ################JJJ............    
+--      ################.............      
+--      ##############.JJJ.JJJJJJJJJJ      
+--      ############...JJ...JJ..JJ  JJ     
+--      ##########....JJ...JJ..JJ  JJ      
+--      ########......JJJ..JJJ JJJ JJJ     
+--      ######    .........                
+--
+
 local Plug = vim.fn['plug#']
 
 vim.fn['plug#begin']()
@@ -24,9 +40,6 @@ Plug('rust-lang/rust.vim')
 
 vim.fn['plug#end']()
 
--- =============================================================================
--- GENERAL SETTINGS
--- =============================================================================
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 vim.cmd('colorscheme gruvbox')
@@ -62,7 +75,7 @@ opt.cursorline = true
 opt.backup = false
 opt.swapfile = false
 opt.iskeyword:append("-")
-opt.termguicolors = true -- modern alternative to t_Co=256
+opt.termguicolors = true
 opt.background = "dark"
 opt.list = true
 opt.listchars = { tab = ">.", trail = ".", extends = "#", nbsp = "." }
@@ -72,9 +85,6 @@ opt.laststatus = 2
 opt.encoding = "UTF-8"
 opt.signcolumn = "yes"
 
--- =============================================================================
--- GLOBALS & VARIABLES
--- =============================================================================
 vim.g.mapleader = ","
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
@@ -107,11 +117,8 @@ vim.g.fzf_colors = {
   header  = { 'fg', 'Comment' }
 }
 
--- =============================================================================
--- KEYMAPPINGS
--- =============================================================================
+-- # KEYMAPPINGS
 
--- Remap ; to :
 vim.keymap.set('n', ';', ':')
 
 -- Disable arrow keys
@@ -134,30 +141,30 @@ vim.keymap.set('n', '<S-Down>', '<C-w>j')
 vim.keymap.set('n', '<S-Up>', '<C-w>k')
 vim.keymap.set('n', '<S-Right>', '<C-w>l')
 
--- Logic Mappings
+-- File search
 vim.keymap.set('n', '<C-p>', ':GFilesOrFiles<CR>')
+
+-- Leader Mappings
 vim.keymap.set('n', '<Leader><space>', ':noh<CR>')
 vim.keymap.set('n', '<Leader>a', ':Ag ')
 vim.keymap.set('n', '<Leader>w', ':execute ":Ag " . expand("<cword>")<CR>')
 vim.keymap.set('n', '<Leader>r', ':%s/\\<<C-r><C-w>\\>/')
-
 vim.keymap.set('n', '<Leader>t', ':NERDTreeToggle<CR>')
 vim.keymap.set('n', '<Leader>8', ':WIP<CR>')
-vim.keymap.set('n', '<Leader>q', ':bd!<CR>')
+vim.keymap.set('n', '<Leader>b', ':bd!<CR>')
+vim.keymap.set('n', '<Leader>q', ':q!<CR>')
 
 -- Resize
 vim.keymap.set('n', '<C-Right>', ':vertical resize +5<CR>')
 vim.keymap.set('n', '<C-Left>', ':vertical resize -5<CR>')
 
+-- Auto complete
 vim.keymap.set('i', '<Tab>', '<C-n>')
 
--- =============================================================================
--- AUTOCOMMANDS
--- =============================================================================
+-- # AUTOCOMMANDS
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
--- Create directory if absent on save
 local mkdir_group = augroup("Mkdir", { clear = true })
 autocmd("BufWritePre", {
   group = mkdir_group,
@@ -169,12 +176,13 @@ autocmd("BufWritePre", {
   end
 })
 
--- =============================================================================
--- CUSTOM FUNCTIONS & COMMANDS
--- =============================================================================
+-- # CUSTOM FUNCTIONS & COMMANDS
 
 -- RemoveAllEmptyLines
 vim.api.nvim_create_user_command('RemoveAllEmptyLines', 'g/^$/d', {})
+
+-- RemoveTrailingWhiteSpaces
+vim.api.nvim_create_user_command('RemoveTrailingWhiteSpaces', ':%s/\\s\\+$//e', {})
 
 -- GFilesOrFiles
 vim.api.nvim_create_user_command('GFilesOrFiles', function()
