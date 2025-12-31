@@ -14,11 +14,10 @@ After cloning the repo enter nvim and execute `:PlugInstall`
   - Gruvbox: Color schema Gruvbox for the win.
   - Vim-polyglot: Syntax for several languages.
   - FZF: Fuzzy searching and auto complete (mapped as `ctrl p`).
-  - NerdTree: Another more traditional file navigation.
+  - NerdTree: More traditional file navigation.
   - NerdCommenter: Easy comment / uncomment (mapped as `leader cc` / `leader cu`).
   - Lightline: Beautiful status bar.
   - WIP: Fast and simple anotations based on git repo and branch.
-  - Coc: Completion and language server.
 
 ## Useful Commands
 
@@ -27,7 +26,6 @@ After cloning the repo enter nvim and execute `:PlugInstall`
   - Navigation: `h j k l`
   - Buffer navigation: `Tag`, `S-Tab`
   - Window navigation: `shift` + `← → ↑ ↓`
-  - NerdTree: `,,`
 
 ### Searching
 
@@ -42,7 +40,6 @@ After cloning the repo enter nvim and execute `:PlugInstall`
 
 ### Programming
 
-  - Terminal: `,` + `t`
   - Comment: `,` + `cc`
   - Uncomment: `,` + `cu`
   - Open a project + branch based annotation file: `,8`

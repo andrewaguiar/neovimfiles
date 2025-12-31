@@ -141,6 +141,7 @@ vim.keymap.set('n', '<Leader>a', ':Ag ')
 vim.keymap.set('n', '<Leader>w', ':execute ":Ag " . expand("<cword>")<CR>')
 vim.keymap.set('n', '<Leader>r', ':%s/\\<<C-r><C-w>\\>/')
 
+vim.keymap.set('n', '<Leader>t', ':NERDTreeToggle<CR>')
 vim.keymap.set('n', '<Leader>8', ':WIP<CR>')
 vim.keymap.set('n', '<Leader>q', ':bd!<CR>')
 
