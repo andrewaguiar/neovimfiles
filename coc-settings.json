@@ -1,0 +1,5 @@
+{
+  "elixir.pathToElixirLS": "~/dev/bin/elixir-ls-v0.30.0/language_server.sh",
+  "elixirLS.dialyzerEnabled": false,
+  "javascript.suggestionActions.enabled": false
+}

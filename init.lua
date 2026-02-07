@@ -30,7 +30,6 @@ Plug('preservim/nerdcommenter')
 Plug('itchyny/lightline.vim')
 Plug('ap/vim-buftabline')
 Plug('tpope/vim-endwise')
-Plug('preservim/nerdtree')
 Plug('airblade/vim-gitgutter')
 Plug('tpope/vim-fugitive')
 Plug('andrewaguiar/wip.vim')
@@ -149,10 +148,10 @@ vim.keymap.set('n', '<Leader><space>', ':noh<CR>')
 vim.keymap.set('n', '<Leader>a', ':Ag ')
 vim.keymap.set('n', '<Leader>w', ':execute ":Ag " . expand("<cword>")<CR>')
 vim.keymap.set('n', '<Leader>r', ':%s/\\<<C-r><C-w>\\>/')
-vim.keymap.set('n', '<Leader>t', ':NERDTreeToggle<CR>')
 vim.keymap.set('n', '<Leader>8', ':WIP<CR>')
-vim.keymap.set('n', '<Leader>b', ':bd!<CR>')
-vim.keymap.set('n', '<Leader>q', ':q!<CR>')
+vim.keymap.set('n', '<Leader>q', ':bd!<CR>')
+vim.keymap.set('n', '<Leader><Leader>', ':NERDTreeToggleSmartly<CR>')
+vim.keymap.set('n', '<Leader>.', ':GFilesOrFiles<CR>')
 
 -- Resize
 vim.keymap.set('n', '<C-Right>', ':vertical resize +5<CR>')
@@ -176,6 +175,22 @@ autocmd("BufWritePre", {
   end
 })
 
+vim.cmd[[
+function! s:NERDTreeToggleSmartly() abort
+  if exists("g:NERDTree") && g:NERDTree.IsOpen()
+    execute ":NERDTreeClose"
+  else
+    if expand('%:p') == ''
+      execute ":NERDTree"
+    else
+      execute ":NERDTreeFind"
+    endif
+  endif
+endfunction
+
+command! -nargs=* NERDTreeToggleSmartly call s:NERDTreeToggleSmartly()
+]]
+
 -- # CUSTOM FUNCTIONS & COMMANDS
 
 -- RemoveAllEmptyLines
@@ -183,6 +198,20 @@ vim.api.nvim_create_user_command('RemoveAllEmptyLines', 'g/^$/d', {})
 
 -- RemoveTrailingWhiteSpaces
 vim.api.nvim_create_user_command('RemoveTrailingWhiteSpaces', ':%s/\\s\\+$//e', {})
+
+-- StringKeyToSymbol
+vim.cmd([[
+function! StringKeyToSymbol(quote, ...) range
+  if empty(a:quote)
+    let squote = '\''
+  else
+    let squote = '"'
+  endif
+
+  execute a:firstline . ',' . a:lastline . 'norm 0t' . squote . 'lx0t' . squote . 'lx0t=xxxi: '
+endfunction
+command! -bang -nargs=* -range StringKeyToSymbol <line1>,<line2>call StringKeyToSymbol('<quote>', <f-args>)
+]])
 
 -- GFilesOrFiles
 vim.api.nvim_create_user_command('GFilesOrFiles', function()
@@ -233,3 +262,4 @@ function! LineBreakAt(bang, ...) range
 endfunction
 command! -bang -nargs=* -range LineBreakAt <line1>,<line2>call LineBreakAt('<bang>', <f-args>)
 ]])
+
