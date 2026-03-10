@@ -83,6 +83,7 @@ opt.mouse = "a"
 opt.laststatus = 2
 opt.encoding = "UTF-8"
 opt.signcolumn = "yes"
+opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = ","
 vim.g.loaded_python3_provider = 0
