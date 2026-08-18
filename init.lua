@@ -263,3 +263,24 @@ endfunction
 command! -bang -nargs=* -range LineBreakAt <line1>,<line2>call LineBreakAt('<bang>', <f-args>)
 ]])
 
+-- Copy relative path
+vim.keymap.set("n", "<leader>cr", function()
+    local path = vim.fn.expand("%")
+    vim.fn.setreg("+", path)
+    print("Copied relative path: " .. path)
+end, { desc = "Copy relative file path" })
+
+-- Copy absolute path
+vim.keymap.set("n", "<leader>ca", function()
+    local path = vim.fn.expand("%:p")
+    vim.fn.setreg("+", path)
+    print("Copied absolute path: " .. path)
+end, { desc = "Copy absolute file path" })
+
+-- Copy filename only
+vim.keymap.set("n", "<leader>ct", function()
+    local path = vim.fn.expand("%:t")
+    vim.fn.setreg("+", path)
+    print("Copied filename: " .. path)
+end, { desc = "Copy filename" })
+
