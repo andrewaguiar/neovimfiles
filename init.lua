@@ -271,17 +271,19 @@ vim.keymap.set("n", "<leader>cr", function()
     print("Copied relative path: " .. path)
 end, { desc = "Copy relative file path" })
 
--- Copy absolute path
-vim.keymap.set("n", "<leader>ca", function()
-    local path = vim.fn.expand("%:p")
-    vim.fn.setreg("+", path)
-    print("Copied absolute path: " .. path)
-end, { desc = "Copy absolute file path" })
-
--- Copy filename only
-vim.keymap.set("n", "<leader>ct", function()
-    local path = vim.fn.expand("%:t")
-    vim.fn.setreg("+", path)
-    print("Copied filename: " .. path)
-end, { desc = "Copy filename" })
+-- Copy relative paths of all open buffers
+vim.keymap.set("n", "<leader>cra", function()
+    local paths = {}
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
+            local name = vim.api.nvim_buf_get_name(buf)
+            if name ~= "" then
+                table.insert(paths, vim.fn.fnamemodify(name, ":."))
+            end
+        end
+    end
+    local result = table.concat(paths, "\n")
+    vim.fn.setreg("+", result)
+    print("Copied " .. #paths .. " buffer paths")
+end, { desc = "Copy relative paths of all open buffers" })
 
