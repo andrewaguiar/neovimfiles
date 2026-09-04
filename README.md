@@ -43,4 +43,6 @@ After cloning the repo enter nvim and execute `:PlugInstall`
   - Comment: `,` + `cc`
   - Uncomment: `,` + `cu`
   - Open a project + branch based annotation file: `,8`
+  - List WIP annotations: `,7`
+  - Open a repo based annotation file: `,9`
 
